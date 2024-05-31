@@ -17,6 +17,7 @@ Given as inputs the image, the threshold and the seed coordinates, the goal is t
 the mask matrix, where the values can be either 0 or 1, meaning that pixel didn’t (or did) satisfy the homogeneity criterion.
 
 Here follow the pseudocodes for the sequential algorithm and the CUDA parallel algorithm. Finally some visual examples of output generated.
+The code provides both implementations and outputs the execution time in milliseconds for both of them.
 
 ## Sequential Algorithm Pseudocode
 
