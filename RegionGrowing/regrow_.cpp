@@ -20,13 +20,13 @@ void grow_region(unsigned char *matrix, unsigned char* source_channel_b, unsigne
 	// il numero di pixel che durante la ricerca verranno visitati e che rispettano la soglia (pensiamo idealmente a una immagine monocromatica
 	// il cui colore è proprio quello del seed)
 	unsigned int *stack_r = (unsigned int*)malloc(rows*cols*sizeof(unsigned int));
-    unsigned int *stack_c = (unsigned int*)malloc(rows*cols*sizeof(unsigned int));
+    	unsigned int *stack_c = (unsigned int*)malloc(rows*cols*sizeof(unsigned int));
     
 	//Vengono inizializzati i due indici per la gestione dei due stack e vengono inserite al suo interno le coordinate del punto dato in input
-    int index_r = 0;
-    int index_c = 0;
+    	int index_r = 0;
+    	int index_c = 0;
 	stack_r[index_r] = k;
-    stack_c[index_c] = l;
+    	stack_c[index_c] = l;
 
 	//Fintanto che i due stack non si svuoteranno del tutto.
 	// Durante la ricerca dei pixel delle regioni è molto plausibile che arrivati ad un certo punto
@@ -37,10 +37,10 @@ void grow_region(unsigned char *matrix, unsigned char* source_channel_b, unsigne
 	{
 		// viene "estratto" l'elemento in cima allo stack
 		// e viene decrementato l'indice sui due array corrispondenti
-        int temp_r = stack_r[index_r];
-        int temp_c = stack_c[index_c];
-        index_r--;
-        index_c--;
+        	int temp_r = stack_r[index_r];
+        	int temp_c = stack_c[index_c];
+        	index_r--;
+        	index_c--;
 
 
 		//Per considerare l'intorno 3x3 del pixel estratto dallo stack aggiungiamo a queste coordinate valori sulle righe
@@ -53,7 +53,7 @@ void grow_region(unsigned char *matrix, unsigned char* source_channel_b, unsigne
 				if(temp_r + i >= 0 && temp_c + j >= 0 && temp_r + i < rows && temp_c + j < cols)
 				{   
 					//calcoliamo che il valore della maschera in posizione (i,j) non sia già stato considerato in precedenza e posto ad uno
-                    int mat_ind_temp = (temp_r + i)*cols + (temp_c + j);
+                    			int mat_ind_temp = (temp_r + i)*cols + (temp_c + j);
 					if(matrix[mat_ind_temp] == 0)
 					{
 						// calcoliamo la distanza euclidea tra il valore del seed e quello del pixel nella posizione in attuale considerazione
@@ -67,10 +67,10 @@ void grow_region(unsigned char *matrix, unsigned char* source_channel_b, unsigne
 							
 							//incrementiamo gli indici sui due stack e inseriamo le coordinate di questo nuovo punto
 							// per poter poi controllane l'intorno 3x3 nella prossima iterazione del while.
-                            index_r++;
-                            index_c++;
-                            stack_r[index_r] = temp_r + i;
-                            stack_c[index_c] = temp_c + j;
+                            				index_r++;
+                            				index_c++;
+                            				stack_r[index_r] = temp_r + i;
+                            				stack_c[index_c] = temp_c + j;
 
 							// Anche se venissero inseriti piu volte gli stessi indici in iterazioni diverse, controllandone il corrispettivo
 							// valore nella maschera che sarà già stato posto ad 1, non verranno inseriti ulteriormente ma solo estratti dagli
@@ -95,7 +95,7 @@ void region_growing_CPU(unsigned char *matrix, unsigned char* source_channel_b, 
 	{
 		for(int j = 0; j < cols; j+=step_size)
 		{
-            grow_region(matrix, source_channel_b, source_channel_g, source_channel_r, rows, cols, point_x, point_y, soglia, i, j);
+            		grow_region(matrix, source_channel_b, source_channel_g, source_channel_r, rows, cols, point_x, point_y, soglia, i, j);
 		}
 	}
 }
@@ -128,14 +128,14 @@ int main(int argc, char* argv[])
 	if(!img.data || argc != 5)
 	{
 		cout<<"Error on input or on image opening"<<endl;
-        cout<<"Usage ./regionGrow <Path Immagine> <soglia> <coordinata i del seed> <coordinata j del seed>"<<endl;
+        	cout<<"Usage ./regionGrow <Path Immagine> <soglia> <coordinata i del seed> <coordinata j del seed>"<<endl;
 		exit(-1);
 	}
 
 	int soglia = atoi(argv[2]);
 
-    int cord_i = atoi(argv[3]);
-    int cord_j = atoi(argv[4]);
+    	int cord_i = atoi(argv[3]);
+    	int cord_j = atoi(argv[4]);
 
 	if(cord_i > img.rows || cord_j > img.cols)
 	{
@@ -145,22 +145,22 @@ int main(int argc, char* argv[])
 
 	//Creo per l'immagine di input e per l'immagine di output prodotta dalla funzione su GPU
 	// tre matrici di unsigned char, non uso gli interi perchè i valori dei pixel per ogni canale vanno da 0 a 255
-    unsigned char *img_channel_b = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
-    unsigned char *img_channel_g = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
-    unsigned char *img_channel_r = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *img_channel_b = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *img_channel_g = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *img_channel_r = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
 
 	unsigned char *out_channel_b = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
-    unsigned char *out_channel_g = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
-    unsigned char *out_channel_r = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *out_channel_g = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *out_channel_r = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
 
 	//Creo le due matrici che rappresentano la maschera per le regioni trovate
-    unsigned char *matrix = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
+    	unsigned char *matrix = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
 	unsigned char *matrix_cpu = (unsigned char*)malloc(img.rows*img.cols*sizeof(unsigned char));
 
 	//Riempio le tre matrici dei singoli canali dall'immagine Mat
-    from_Mat_to_Char(img, img_channel_b, img_channel_g, img_channel_r, img.rows, img.cols);
+    	from_Mat_to_Char(img, img_channel_b, img_channel_g, img_channel_r, img.rows, img.cols);
 
-    //inizializzo a zero le matrici che rappresentano le maschere per le regioni
+    	//inizializzo a zero le matrici che rappresentano le maschere per le regioni
 	for(int i = 0; i < img.rows; i++)
 	{
 		for(int j = 0; j < img.cols; j++)
@@ -175,24 +175,24 @@ int main(int argc, char* argv[])
 	float time_cpu;
 	cudaEventCreate(&start_cpu);
 	cudaEventCreate(&stop_cpu);
-    cudaEventRecord(start_cpu, 0);
+    	cudaEventRecord(start_cpu, 0);
 
 	//Effettuo una chiamata alla funzione di RegionGrowing sequenziale
 	// Oltre alle matrici per la maschera e i tre canali BGR separati, do in input le dimensioni dell'immagine
 	// lo step con cui richiamare la funzione di crescita delle regioni per coprire tutta l'immagine, la posizione
 	// dell'elemento seed e la soglia utilizzata per aggiungere i pixel alle regioni simili al seed
-    region_growing_CPU(matrix_cpu, img_channel_b, img_channel_g, img_channel_r, img.rows, img.cols, 3, cord_i, cord_j, soglia);
+    	region_growing_CPU(matrix_cpu, img_channel_b, img_channel_g, img_channel_r, img.rows, img.cols, 3, cord_i, cord_j, soglia);
 	
 	//Ottenuta la maschera di output, richiamo la funzione di ricolorazione per avere una immagine di output nera
 	// dove i pixel colorati sono solo quelli appartenenti alle regioni trovate dall'algoritmo.
-    Mat ris_cpu = ricolorazione(img, matrix_cpu);
+    	Mat ris_cpu = ricolorazione(img, matrix_cpu);
 
 	cudaEventRecord(stop_cpu,0);
 	cudaEventSynchronize(stop_cpu);
 	cudaEventElapsedTime(&time_cpu, start_cpu, stop_cpu);
 	cout << endl << "Tempo di esecuzione sull'host (CPU) in millisecondi: " << time_cpu << endl << endl;
 
-    imwrite("RegionGrowing_CPU.jpg", ris_cpu);
+    	imwrite("RegionGrowing_CPU.jpg", ris_cpu);
     
 
 	//Variabili CUDA per determinare il tempo di esecuzione su GPU in millisecondi
@@ -200,7 +200,7 @@ int main(int argc, char* argv[])
 	float time_gpu;
 	cudaEventCreate(&start_gpu);
 	cudaEventCreate(&stop_gpu);
-    cudaEventRecord(start_gpu, 0);
+    	cudaEventRecord(start_gpu, 0);
 
 	// Richiamo la funzione per eseguire l'algoritmo su GPU
 	// Dando in input anche le matrici che rappresenteranno i tre canali della immagine di output
@@ -217,15 +217,15 @@ int main(int argc, char* argv[])
 	Mat ris_gpu = img.clone();
 	from_Char_to_Mat(ris_gpu, out_channel_b, out_channel_g, out_channel_r, img.rows, img.cols);
 
-    imwrite("RegionGrowing_GPU.jpg", ris_gpu);
+    	imwrite("RegionGrowing_GPU.jpg", ris_gpu);
 
 	//Libero la memoria da tutte le matrici allocate dinamicamente con la malloc
-    free(matrix);
-    free(img_channel_b);
-    free(img_channel_g);
-    free(img_channel_r);
+    	free(matrix);
+    	free(img_channel_b);
+    	free(img_channel_g);
+    	free(img_channel_r);
 	free(out_channel_b);
-    free(out_channel_g);
-    free(out_channel_r);
+    	free(out_channel_g);
+    	free(out_channel_r);
 	return 0;
 }
