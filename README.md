@@ -12,3 +12,6 @@ is a sort of statistical test based on variance or mean of the regions, is inste
 of pixels which must be less or equal than an input threshold.
 As a result of this particular implementation, the output image will only have RGB values different from black for the pixels that belong to the region
 found that satisfy the threshold.
+
+Given as inputs the image, the threshold and the seed coordinates, the goal is to obtain a matrix of the same size as that of the image, we’ll call it
+the mask matrix, where the values can be either 0 or 1, meaning that pixel didn’t (or did) satisfy the homogeneity criterion
