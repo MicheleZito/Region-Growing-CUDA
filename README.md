@@ -1,4 +1,4 @@
-# Region-Growing-CUDA-
+# Region-Growing-CUDA
 C++ with CUDA implementation of the Region Growing algorithm.
 The Region Growing algorithm implemented grows regions selecting pixels that are similar to one given seed on the image, resulting in a single region approach.
 The files can be compiled using the shell script provided.
@@ -22,20 +22,20 @@ The code provides both implementations and outputs the execution time in millise
 ## Sequential Algorithm Pseudocode
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_1.png" height="300" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA/blob/main/images/alg_1.png" height="300" />
 </div>
 
 ## Parallel CUDA Algorithm Pseudocode
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_2_cuda.png" height="800" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA/blob/main/images/alg_2_cuda.png" height="800" />
 </div>
 
 ## Examples of Outputs
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="400" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA/blob/main/images/img_1.png" height="400" />
 </div>
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="200" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA/blob/main/images/img_2.png" height="200" />
 </div>
