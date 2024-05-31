@@ -14,7 +14,9 @@ As a result of this particular implementation, the output image will only have R
 found that satisfy the threshold.
 
 Given as inputs the image, the threshold and the seed coordinates, the goal is to obtain a matrix of the same size as that of the image, we’ll call it
-the mask matrix, where the values can be either 0 or 1, meaning that pixel didn’t (or did) satisfy the homogeneity criterion
+the mask matrix, where the values can be either 0 or 1, meaning that pixel didn’t (or did) satisfy the homogeneity criterion.
+
+Here follow the pseudocodes for the sequential algorithm and the CUDA parallel algorithm. Finally some visual examples of output generated.
 
 ## Sequential Algorithm Pseudocode
 
