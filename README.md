@@ -19,18 +19,18 @@ the mask matrix, where the values can be either 0 or 1, meaning that pixel didnâ
 ## Sequential Algorithm Pseudocode
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_1.png" height="600" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_1.png" height="400" />
 </div>
 
 ## Parallel CUDA Algorithm Pseudocode
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_2.png" height="600" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_2_cuda.png" height="600" />
 </div>
 
 ## Examples of Outputs
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="600" />
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="600" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="400" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="200" />
 </div>
