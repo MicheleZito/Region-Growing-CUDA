@@ -134,43 +134,43 @@ __global__ void growRegionsGPU_SHM(unsigned char *matrix, unsigned char* source_
 
                 while(index_r > -1 && index_c > -1)
 	            {
-                    int temp_r = stack_r[index_r];
-                    int temp_c = stack_c[index_c];
-                    index_r--;
-                    index_c--;
+                    	int temp_r = stack_r[index_r];
+                    	int temp_c = stack_c[index_c];
+                    	index_r--;
+                    	index_c--;
 
 		            for(short i = -1; i <= 1; i++)
 		            {
     			        for(short j = -1; j <= 1; j++)
 			            {
     				        if(temp_r + i >= thread_start_row && temp_c + j >= thread_start_col && temp_r + i <= thread_end_row && temp_c + j <= thread_end_col)
-				            {   
-                                // Otteniamo i corrispettivi indici da utilizzare all'interno delle porzioni di SM 
-                                int converted_i = (temp_r + i)%NUM_PIXEL_PER_BLOCK;
-                                int converted_j = (temp_c + j)%NUM_PIXEL_PER_BLOCK;
+				        {   
+                                		// Otteniamo i corrispettivi indici da utilizzare all'interno delle porzioni di SM 
+                                		int converted_i = (temp_r + i)%NUM_PIXEL_PER_BLOCK;
+                                		int converted_j = (temp_c + j)%NUM_PIXEL_PER_BLOCK;
 
-					            if(shared_mask[converted_i][converted_j] == 0)
-					            {
-                                    // Poichè richiamare funzioni esterne all'interno di un kernel è complesso,
-                                    // Calcoliamo "manualmente" la distanza euclidea
-                                    int b_diff = shared_B[converted_i][converted_j] - point_b;
-	                                int g_diff = shared_G[converted_i][converted_j] - point_g;
-	                                int r_diff = shared_R[converted_i][converted_j] - point_r;
+					        if(shared_mask[converted_i][converted_j] == 0)
+					        {
+                                    			// Poichè richiamare funzioni esterne all'interno di un kernel è complesso,
+                                    			// Calcoliamo "manualmente" la distanza euclidea
+                                    			int b_diff = shared_B[converted_i][converted_j] - point_b;
+	                                		int g_diff = shared_G[converted_i][converted_j] - point_g;
+	                                		int r_diff = shared_R[converted_i][converted_j] - point_r;
 
-	                                int dist_euclid = (int)sqrt((float)(b_diff*b_diff + g_diff*g_diff + r_diff*r_diff));
+	                                		int dist_euclid = (int)sqrt((float)(b_diff*b_diff + g_diff*g_diff + r_diff*r_diff));
     
-						            if( dist_euclid <= soglia)
-						            {
-    							        shared_mask[converted_i][converted_j] = 1;
-                                        index_r++;
-                                        index_c++;
-                                        stack_r[index_r] = temp_r + i;
-                                        stack_c[index_c] = temp_c + j;
-						            }
-					            }
-				            }
-			            }
-		            }
+						        if( dist_euclid <= soglia)
+						        {
+    								shared_mask[converted_i][converted_j] = 1;
+                                        			index_r++;
+                                        			index_c++;
+                                        			stack_r[index_r] = temp_r + i;
+                                        			stack_c[index_c] = temp_c + j;
+						        }
+					        }
+				        }
+			        }
+		        }
 	            }
             }
         }
@@ -236,38 +236,38 @@ __global__ void growRegionsGPU(unsigned char *matrix, unsigned char* source_chan
 
                 while(index_r > -1 && index_c > -1)
 	            {
-                    int temp_r = stack_r[index_r];
-                    int temp_c = stack_c[index_c];
-                    index_r--;
-                    index_c--;
+                    	int temp_r = stack_r[index_r];
+                    	int temp_c = stack_c[index_c];
+                    	index_r--;
+                    	index_c--;
 
 		            for(short i = -1; i <= 1; i++)
 		            {
     			        for(short j = -1; j <= 1; j++)
-			            {
-    				        if(temp_r + i >= thread_start_row && temp_c + j >= thread_start_col && temp_r + i <= thread_end_row && temp_c + j <= thread_end_col)
-				            {   
-                                int mat_ind_temp = (temp_r + i)*cols + (temp_c + j);
+			        {
+    					if(temp_r + i >= thread_start_row && temp_c + j >= thread_start_col && temp_r + i <= thread_end_row && temp_c + j <= thread_end_col)
+				        {   
+                                		int mat_ind_temp = (temp_r + i)*cols + (temp_c + j);
 
-					            if(matrix[mat_ind_temp] == 0)
-					            {
-                                    int b_diff = source_channel_b[mat_ind_temp] - point_b;
-	                                int g_diff = source_channel_g[mat_ind_temp] - point_g;
-	                                int r_diff = source_channel_r[mat_ind_temp] - point_r;
+					        if(matrix[mat_ind_temp] == 0)
+					        {
+                                    			int b_diff = source_channel_b[mat_ind_temp] - point_b;
+	                                		int g_diff = source_channel_g[mat_ind_temp] - point_g;
+	                                		int r_diff = source_channel_r[mat_ind_temp] - point_r;
 
-	                                int dist_euclid = (int)sqrt((float)(b_diff*b_diff + g_diff*g_diff + r_diff*r_diff));
+	                                		int dist_euclid = (int)sqrt((float)(b_diff*b_diff + g_diff*g_diff + r_diff*r_diff));
     
-						            if( dist_euclid <= soglia)
-						            {
-    							        matrix[mat_ind_temp] = 1;
-                                        index_r++;
-                                        index_c++;
-                                        stack_r[index_r] = temp_r + i;
-                                        stack_c[index_c] = temp_c + j;
-						            }
-					            }
-				            }
-			            }
+						        if( dist_euclid <= soglia)
+						        {
+    								matrix[mat_ind_temp] = 1;
+                                        			index_r++;
+                                        			index_c++;
+                                        			stack_r[index_r] = temp_r + i;
+                                        			stack_c[index_c] = temp_c + j;
+						        }
+					        }
+				        }
+			        }
 		            }
 	            }
             }
@@ -370,13 +370,13 @@ void regionGrowingGPU(unsigned char *matrix, unsigned char* source_channel_b, un
     // Viene fatto questo per poter gestire immagini di qualsiasi dimensione, 
     // che non sia obbligatoriamente un multiplo di 32 o una potenza di due
     nBlocks.x = (int)ceil((float)cols/(float)NUM_PIXEL_PER_BLOCK);
-	nBlocks.y = (int)ceil((float)rows/(float)NUM_PIXEL_PER_BLOCK);
+    nBlocks.y = (int)ceil((float)rows/(float)NUM_PIXEL_PER_BLOCK);
 
     //cudaEvent_t start, stop;
-	//float time;
+    //float time;
 
-	//cudaEventCreate(&start);
-	//cudaEventCreate(&stop);
+    //cudaEventCreate(&start);
+    //cudaEventCreate(&stop);
     //cudaEventRecord(start, 0);
 
     // Richiamo del Kernel da eseguire sulla GPU, dando come input le matrici allocate sul Device, oltre che ai valori analoghi alla versione sequenziale
@@ -400,10 +400,10 @@ void regionGrowingGPU(unsigned char *matrix, unsigned char* source_channel_b, un
     cudaMemcpy(out_channel_r, out_channel_r_device, rows*cols*sizeof(unsigned char), cudaMemcpyDeviceToHost);
     
     //// memorizzo il tempo di fine
-	////cudaEventRecord(stop,0);
-	////cudaEventSynchronize(stop);
+    ////cudaEventRecord(stop,0);
+    ////cudaEventSynchronize(stop);
     //cudaEventElapsedTime(&time, start, stop);
-	//printf("Tempo di esecuzione sul device (GPU) in millisecondi: %f \n", time);
+    //printf("Tempo di esecuzione sul device (GPU) in millisecondi: %f \n", time);
 
 
     // Libero la memoria allocata in precedenza sul Device
