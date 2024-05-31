@@ -26,8 +26,10 @@ void from_Mat_to_Char(Mat img, unsigned char* out_channel_b, unsigned char* out_
 void from_Char_to_Mat(Mat &img, unsigned char* out_channel_b, unsigned char* out_channel_g, unsigned char* out_channel_r, int rows, int cols)
 {
 
-    for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
+    for(int i=0; i<rows; i++)
+    {
+        for(int j=0; j<cols; j++)
+	{
             img.at<Vec3b>(i,j) = Vec3b(out_channel_b[i*cols+j], out_channel_g[i*cols+j], out_channel_r[i*cols+j]);
         }
     }
@@ -42,5 +44,5 @@ int dist_euclid(unsigned char first_b, unsigned char first_g, unsigned char firs
 	int r = first_r - second_r;
 
 	int dist = (int)sqrt((float)(b*b + g*g + r*r));
-    return dist;
+    	return dist;
 }
