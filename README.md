@@ -15,3 +15,22 @@ found that satisfy the threshold.
 
 Given as inputs the image, the threshold and the seed coordinates, the goal is to obtain a matrix of the same size as that of the image, we’ll call it
 the mask matrix, where the values can be either 0 or 1, meaning that pixel didn’t (or did) satisfy the homogeneity criterion
+
+## Sequential Algorithm Pseudocode
+
+<div align=center>
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_1.png" height="600" />
+</div>
+
+## Parallel CUDA Algorithm Pseudocode
+
+<div align=center>
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/alg_2.png" height="600" />
+</div>
+
+## Examples of Outputs
+
+<div align=center>
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="600" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="600" />
+</div>
