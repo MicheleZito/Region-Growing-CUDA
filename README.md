@@ -31,8 +31,8 @@ the mask matrix, where the values can be either 0 or 1, meaning that pixel didnâ
 ## Examples of Outputs
 
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="300" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_1.png" height="400" />
 </div>
 <div align=center>
-<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="100" />
+<img src="https://github.com/MicheleZito/Region-Growing-CUDA-/blob/main/images/img_2.png" height="200" />
 </div>
